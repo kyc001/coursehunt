@@ -1,0 +1,9 @@
+# pixi environments
+.pixi/*
+!.pixi/config.toml
+
+# local secrets and runtime artifacts
+.env
+.cache/
+__pycache__/
+*.pyc

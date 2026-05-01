@@ -1,0 +1,1337 @@
+algorithm:
+  aliases:
+  - 算法导论
+  - 算法
+  - 算法设计与分析
+  - introduction to algorithms
+  - algorithms
+  - CLRS
+  assignment_keywords:
+  - homework
+  - hw
+  - lab
+  - experiment
+  - project
+  - 实验
+  - 实验报告
+  - 作业
+  canonical_name: 算法导论
+  common_file_patterns:
+  - hw[0-9]+
+  - homework[0-9]+
+  - lab[0-9]+
+  - sort
+  - graph
+  - dp
+  - greedy
+  course_codes:
+  - COSC0016
+  english_names:
+  - Introduction to Algorithms
+  - Algorithms
+  negative_keywords:
+  - blog
+  - notes-only
+  - tutorial
+  - leetcode
+  technologies:
+  - C/C++
+  - Java
+  - Python
+  - pseudocode
+artificial_intelligence:
+  aliases:
+  - 人工智能
+  - 人工智能导论
+  - AI实验
+  - artificial intelligence
+  - AI
+  - introduction to ai
+  canonical_name: 人工智能导论
+  course_codes:
+  - COSC0015
+  english_names:
+  - Artificial Intelligence
+  - AI
+  - Introduction to AI
+compiler:
+  aliases:
+  - 编译原理
+  - 编译系统原理
+  - 编译器
+  - 编译原理实验
+  - compiler
+  - compiler design
+  assignment_keywords:
+  - homework
+  - hw
+  - lab
+  - experiment
+  - project
+  - 实验
+  - 实验报告
+  - 作业
+  canonical_name: 编译系统原理
+  common_file_patterns:
+  - lab[0-9]+
+  - hw[0-9]+
+  - experiment[0-9]+
+  - parser
+  - lexer
+  - ast
+  - ir
+  - codegen
+  course_codes:
+  - COSC0017
+  english_names:
+  - Compiler
+  - Compiler Principles
+  - Compiler Design
+  - Compiler System
+  negative_keywords:
+  - blog
+  - notes-only
+  - tutorial
+  technologies:
+  - LLVM
+  - Flex
+  - Bison
+  - ANTLR
+  - yacc
+  - lex
+computer_network:
+  aliases:
+  - 计算机网络
+  - 网络编程
+  - 网络实验
+  - computer network
+  - networking
+  - network
+  assignment_keywords:
+  - homework
+  - hw
+  - lab
+  - experiment
+  - project
+  - 实验
+  - 实验报告
+  - 作业
+  canonical_name: 计算机网络
+  common_file_patterns:
+  - lab[0-9]+
+  - hw[0-9]+
+  - experiment[0-9]+
+  - socket
+  - http
+  - tcp
+  - udp
+  course_codes:
+  - COSC0010
+  english_names:
+  - Computer Network
+  - Networking
+  negative_keywords:
+  - blog
+  - notes-only
+  - tutorial
+  technologies:
+  - Socket Programming
+  - HTTP
+  - TCP/IP
+  - UDP
+  - Wireshark
+  - C/C++
+data_structure:
+  aliases:
+  - 数据结构
+  - 数据结构与算法
+  - data structure
+  - data structures
+  assignment_keywords:
+  - homework
+  - hw
+  - lab
+  - experiment
+  - project
+  - 实验
+  - 实验报告
+  - 作业
+  canonical_name: 数据结构
+  common_file_patterns:
+  - lab[0-9]+
+  - hw[0-9]+
+  - experiment[0-9]+
+  - sort
+  - tree
+  - graph
+  - stack
+  - queue
+  course_codes:
+  - COSC0007
+  english_names:
+  - Data Structure
+  - Data Structures
+  negative_keywords:
+  - blog
+  - notes-only
+  - tutorial
+  - leetcode
+  technologies:
+  - C/C++
+  - Java
+  - Python
+  - STL
+database:
+  aliases:
+  - 数据库
+  - 数据库系统
+  - 数据库实验
+  - database
+  - DB
+  - DBMS
+  assignment_keywords:
+  - homework
+  - hw
+  - lab
+  - experiment
+  - project
+  - 实验
+  - 实验报告
+  - 作业
+  canonical_name: 数据库系统
+  common_file_patterns:
+  - lab[0-9]+
+  - hw[0-9]+
+  - experiment[0-9]+
+  - sql
+  - query
+  - btree
+  - index
+  course_codes:
+  - COSC0013
+  english_names:
+  - Database
+  - Database System
+  - DBMS
+  negative_keywords:
+  - blog
+  - notes-only
+  - tutorial
+  technologies:
+  - SQL
+  - MySQL
+  - PostgreSQL
+  - SQLite
+  - B+ Tree
+  - Query Optimizer
+deep_learning:
+  aliases:
+  - 深度学习
+  - 深度学习及应用
+  - deep learning
+  - DL
+  assignment_keywords:
+  - homework
+  - hw
+  - lab
+  - experiment
+  - project
+  - 实验
+  - 实验报告
+  - 作业
+  canonical_name: 深度学习
+  common_file_patterns:
+  - lab[0-9]+
+  - hw[0-9]+
+  - experiment[0-9]+
+  - model
+  - train
+  - dataset
+  course_codes:
+  - COSC0054
+  - COSC0067
+  english_names:
+  - Deep Learning
+  - DL
+  negative_keywords:
+  - blog
+  - notes-only
+  - tutorial
+  - awesome
+  technologies:
+  - PyTorch
+  - TensorFlow
+  - scikit-learn
+  - numpy
+  - pandas
+discrete_math:
+  aliases:
+  - 离散数学
+  - 离散数学及其应用
+  - discrete mathematics
+  - discrete math
+  - discrete
+  assignment_keywords:
+  - homework
+  - hw
+  - lab
+  - experiment
+  - project
+  - 实验
+  - 实验报告
+  - 作业
+  canonical_name: 离散数学
+  common_file_patterns:
+  - hw[0-9]+
+  - homework[0-9]+
+  - assignment[0-9]+
+  - proof
+  - graph
+  - logic
+  course_codes:
+  - COSC0050
+  english_names:
+  - Discrete Mathematics
+  - Discrete Math
+  negative_keywords:
+  - blog
+  - notes-only
+  - tutorial
+  technologies:
+  - LaTeX
+  - Mathematica
+  - MATLAB
+information_retrieval:
+  aliases:
+  - 信息检索
+  - 信息检索系统原理
+  - 信息检索系统
+  - information retrieval
+  - IR
+  - ir
+  assignment_keywords:
+  - homework
+  - hw
+  - lab
+  - experiment
+  - project
+  - 实验
+  - 实验报告
+  - 作业
+  - 大作业
+  - 课程设计
+  canonical_name: 信息检索
+  common_file_patterns:
+  - lab[0-9]+
+  - hw[0-9]+
+  - experiment[0-9]+
+  - search
+  - index
+  - query
+  - retrieval
+  course_codes:
+  - COSC0032
+  english_names:
+  - Information Retrieval
+  - IR
+  negative_keywords:
+  - blog
+  - notes-only
+  - tutorial
+  technologies:
+  - Elasticsearch
+  - Lucene
+  - Solr
+  - BM25
+  - TF-IDF
+  - Word2Vec
+  - BERT
+  - FAISS
+machine_learning:
+  aliases:
+  - 机器学习
+  - 机器学习及应用
+  - machine learning
+  - ML
+  assignment_keywords:
+  - homework
+  - hw
+  - lab
+  - experiment
+  - project
+  - 实验
+  - 实验报告
+  - 作业
+  canonical_name: 机器学习
+  common_file_patterns:
+  - lab[0-9]+
+  - hw[0-9]+
+  - experiment[0-9]+
+  - model
+  - train
+  - dataset
+  course_codes:
+  - COSC0028
+  english_names:
+  - Machine Learning
+  - ML
+  negative_keywords:
+  - blog
+  - notes-only
+  - tutorial
+  - awesome
+  technologies:
+  - PyTorch
+  - TensorFlow
+  - scikit-learn
+  - numpy
+  - pandas
+  - Jupyter
+operating_system:
+  aliases:
+  - 操作系统
+  - 操作系统实验
+  - OS实验
+  - OS lab
+  - operating system
+  - os
+  assignment_keywords:
+  - homework
+  - hw
+  - lab
+  - experiment
+  - project
+  - 实验
+  - 实验报告
+  - 作业
+  canonical_name: 操作系统
+  common_file_patterns:
+  - lab[0-9]+
+  - hw[0-9]+
+  - experiment[0-9]+
+  - xv6
+  - nachos
+  - ucore
+  - rCore
+  course_codes:
+  - COSC0009
+  english_names:
+  - Operating System
+  - OS
+  negative_keywords:
+  - blog
+  - notes-only
+  - tutorial
+  technologies:
+  - xv6
+  - Nachos
+  - ucore
+  - rCore
+  - Linux kernel
+  - C
+  - Assembly
+parallel_programming:
+  aliases:
+  - 并行程序设计
+  - 并行计算
+  - 并行编程
+  - 并行计算实验
+  - HPC
+  - high performance computing
+  - MPI
+  - CUDA
+  - OpenMP
+  - parallel
+  assignment_keywords:
+  - homework
+  - hw
+  - lab
+  - experiment
+  - project
+  - assignment
+  - report
+  - 实验
+  - 实验报告
+  - 作业
+  - 大作业
+  - 课程设计
+  canonical_name: 并行程序设计
+  common_file_patterns:
+  - lab[0-9]+
+  - hw[0-9]+
+  - experiment[0-9]+
+  - project
+  - report
+  - 实验报告
+  course_codes:
+  - COSC0025
+  english_names:
+  - Parallel Programming
+  - Parallel Computing
+  - High Performance Computing
+  negative_keywords:
+  - blog
+  - notes-only
+  - tutorial
+  - awesome
+  technologies:
+  - MPI
+  - OpenMP
+  - CUDA
+  - pthread
+  - SIMD
+  - AVX
+software_engineering:
+  aliases:
+  - 软件工程
+  - 软件工程实验
+  - software engineering
+  - SE
+  assignment_keywords:
+  - homework
+  - hw
+  - lab
+  - experiment
+  - project
+  - 实验
+  - 实验报告
+  - 作业
+  - 团队项目
+  canonical_name: 软件工程
+  common_file_patterns:
+  - lab[0-9]+
+  - hw[0-9]+
+  - experiment[0-9]+
+  - sprint
+  - design
+  - test
+  course_codes:
+  - COSC0048
+  english_names:
+  - Software Engineering
+  - SE
+  negative_keywords:
+  - blog
+  - notes-only
+  - tutorial
+  technologies:
+  - Git
+  - Docker
+  - Agile
+  - Scrum
+  - UML
+  - Java
+  - Spring
+advanced_programming_1:
+  canonical_name: 高级语言程序设计2-1
+  aliases:
+  - 高级语言程序设计
+  - 高级语言程序设计2-1
+  - 高级语言程序设计I
+  - 程序设计基础
+  - C语言程序设计
+  - programming
+  - advanced programming
+  english_names:
+  - Advanced Programming 2-1
+  - Programming
+  course_codes:
+  - COSC0002
+  technologies:
+  - C
+  - C/C++
+  - Git
+  assignment_keywords:
+  - lab
+  - homework
+  - 实验
+  - 作业
+  common_file_patterns:
+  - lab[0-9]+
+  - hw[0-9]+
+  - "*.c"
+advanced_programming_2:
+  canonical_name: 高级语言程序设计2-2
+  aliases:
+  - 高级语言程序设计2-2
+  - 高级语言程序设计II
+  - 程序设计进阶
+  - 面向对象程序设计
+  - object oriented programming
+  english_names:
+  - Advanced Programming 2-2
+  - Object Oriented Programming
+  course_codes:
+  - COSC0039
+  technologies:
+  - C/C++
+  - Java
+  - Python
+  - Git
+  assignment_keywords:
+  - lab
+  - homework
+  - project
+  - 实验
+  - 作业
+  common_file_patterns:
+  - lab[0-9]+
+  - project
+linear_algebra:
+  canonical_name: 线性代数
+  aliases:
+  - 线性代数
+  - 线代
+  - linear algebra
+  english_names:
+  - Linear Algebra
+  course_codes:
+  - ARIN0014
+  technologies:
+  - MATLAB
+  - Python
+advanced_mathematics:
+  canonical_name: 高等数学
+  aliases:
+  - 高等数学
+  - 高数
+  - 高等数学A
+  - 高等数学（A类）
+  - 高等数学（A类）I
+  - 高等数学（A类）II
+  - 微积分
+  - calculus
+  - advanced mathematics
+  - higher mathematics
+  - math analysis
+  english_names:
+  - Advanced Mathematics
+  - Higher Mathematics
+  - Calculus
+  - Mathematical Analysis
+  course_codes:
+  - AMTD0033
+  - AMTD0034
+  technologies:
+  - LaTeX
+  assignment_keywords:
+  - homework
+  - notes
+  - exam
+  - review
+  - 作业
+  - 笔记
+  - 试卷
+  - 复习
+probability_statistics:
+  canonical_name: 概率论与数理统计
+  aliases:
+  - 概率论与数理统计
+  - 概率论
+  - 数理统计
+  - probability
+  - statistics
+  english_names:
+  - Probability and Statistics
+  course_codes:
+  - SOFT0218
+  technologies:
+  - Python
+  - R
+  - MATLAB
+computer_hardware_foundation:
+  canonical_name: 计算机硬件基础
+  aliases:
+  - 计算机硬件基础
+  - 硬件基础
+  - 数字逻辑
+  - hardware foundation
+  - digital logic
+  english_names:
+  - Computer Hardware Foundation
+  - Digital Logic
+  course_codes:
+  - COSC0069
+  technologies:
+  - Verilog
+  - VHDL
+  - Logisim
+  assignment_keywords:
+  - lab
+  - experiment
+  - 实验
+computer_organization:
+  canonical_name: 计算机组成原理
+  aliases:
+  - 计算机组成原理
+  - 计组
+  - 组成原理
+  - computer organization
+  - computer architecture basics
+  english_names:
+  - Computer Organization
+  course_codes:
+  - COSC0043
+  technologies:
+  - MIPS
+  - RISC-V
+  - Verilog
+  - Assembly
+  assignment_keywords:
+  - lab
+  - experiment
+  - 实验
+computer_systems_foundation:
+  canonical_name: 计算机系统基础
+  aliases:
+  - 计算机系统基础
+  - 计算机系统
+  - CSAPP
+  - computer systems
+  - computer systems foundation
+  english_names:
+  - Computer Systems Foundation
+  - Computer Systems
+  course_codes:
+  - COSC0070
+  technologies:
+  - C
+  - Assembly
+  - Linux
+  assignment_keywords:
+  - lab
+  - homework
+  - bomb lab
+  - cache lab
+  - 实验
+computer_architecture:
+  canonical_name: 计算机体系结构
+  aliases:
+  - 计算机体系结构
+  - 体系结构
+  - computer architecture
+  - architecture
+  english_names:
+  - Computer Architecture
+  course_codes:
+  - COSC0018
+  technologies:
+  - RISC-V
+  - MIPS
+  - Verilog
+  - CUDA
+  assignment_keywords:
+  - lab
+  - homework
+  - project
+  - 实验
+graduation_thesis:
+  canonical_name: 毕业论文
+  aliases:
+  - 毕业论文
+  - 毕设
+  - 毕业设计
+  - thesis
+  - graduation thesis
+  english_names:
+  - Graduation Thesis
+  course_codes:
+  - COSC0020
+internship_training:
+  canonical_name: 实习实训
+  aliases:
+  - 实习实训
+  - 实习
+  - 实训
+  - internship
+  - practical training
+  english_names:
+  - Internship Training
+  course_codes:
+  - COSC0030
+innovation_training:
+  canonical_name: 创新研究与训练
+  aliases:
+  - 创新研究与训练
+  - 创新训练
+  - 大创
+  - innovation training
+  - research training
+  english_names:
+  - Innovation Research and Training
+  course_codes:
+  - COSC0011
+natural_language_processing:
+  canonical_name: 自然语言处理
+  aliases:
+  - 自然语言处理
+  - 自然语言处理实验
+  - NLP
+  - nlp
+  - natural language processing
+  english_names:
+  - Natural Language Processing
+  - NLP
+  course_codes:
+  - COSC0001
+  technologies:
+  - Python
+  - PyTorch
+  - TensorFlow
+  - BERT
+  - Transformers
+  assignment_keywords:
+  - lab
+  - homework
+  - project
+  - 实验
+  - 作业
+digital_signal_processing:
+  canonical_name: 数字信号处理
+  aliases:
+  - 数字信号处理
+  - 信号处理
+  - DSP
+  - digital signal processing
+  english_names:
+  - Digital Signal Processing
+  - DSP
+  course_codes:
+  - COSC0038
+  technologies:
+  - MATLAB
+  - Python
+  - NumPy
+  assignment_keywords:
+  - lab
+  - experiment
+  - 实验
+data_visualization:
+  canonical_name: 数据可视化
+  aliases:
+  - 数据可视化
+  - 可视化
+  - data visualization
+  - visualization
+  english_names:
+  - Data Visualization
+  course_codes:
+  - COSC0060
+  technologies:
+  - Python
+  - JavaScript
+  - D3
+  - ECharts
+  assignment_keywords:
+  - project
+  - lab
+  - 大作业
+  - 课程设计
+assembly_reverse:
+  canonical_name: 汇编语言与逆向技术
+  aliases:
+  - 汇编语言与逆向技术
+  - 汇编语言
+  - 逆向技术
+  - reverse engineering
+  - assembly language
+  english_names:
+  - Assembly Language and Reverse Engineering
+  course_codes:
+  - CSSE0026
+  technologies:
+  - Assembly
+  - IDA
+  - Ghidra
+  - x86
+  assignment_keywords:
+  - lab
+  - experiment
+  - 实验
+ai_practice_beginner:
+  canonical_name: 人工智能实践课-初级
+  aliases:
+  - 人工智能实践课-初级
+  - 人工智能实践
+  - AI实践课
+  - ai practice
+  english_names:
+  - AI Practice Beginner
+  course_codes:
+  - COSC0072
+  technologies:
+  - Python
+  - PyTorch
+  - scikit-learn
+  assignment_keywords:
+  - lab
+  - project
+  - 实验
+embedded_systems:
+  canonical_name: 嵌入式系统
+  aliases:
+  - 嵌入式系统
+  - 嵌入式
+  - embedded system
+  - embedded systems
+  english_names:
+  - Embedded Systems
+  course_codes:
+  - CSSE0005
+  technologies:
+  - C
+  - ARM
+  - STM32
+  - Linux
+  assignment_keywords:
+  - lab
+  - experiment
+  - project
+  - 实验
+software_security:
+  canonical_name: 软件安全
+  aliases:
+  - 软件安全
+  - software security
+  - binary security
+  english_names:
+  - Software Security
+  course_codes:
+  - CSSE0027
+  technologies:
+  - C
+  - Python
+  - Fuzzing
+  - Ghidra
+  assignment_keywords:
+  - lab
+  - experiment
+  - 实验
+cryptography_foundation:
+  canonical_name: 密码学基础
+  aliases:
+  - 密码学基础
+  - 密码学
+  - 现代密码学
+  - cryptography
+  - crypto
+  english_names:
+  - Cryptography
+  - Cryptography Foundation
+  course_codes:
+  - CSSE0059
+  - CSSE0047
+  technologies:
+  - Python
+  - SageMath
+  - Number Theory
+  assignment_keywords:
+  - homework
+  - lab
+  - 作业
+mobile_app_development:
+  canonical_name: 移动应用开发
+  aliases:
+  - 移动应用开发
+  - 移动开发
+  - Android开发
+  - mobile app development
+  - android development
+  english_names:
+  - Mobile Application Development
+  course_codes:
+  - CSSE0065
+  technologies:
+  - Android
+  - Kotlin
+  - Java
+  - Flutter
+  assignment_keywords:
+  - project
+  - lab
+  - 大作业
+internet_database_development:
+  canonical_name: 互联网数据库开发
+  aliases:
+  - 互联网数据库开发
+  - Web数据库
+  - web database
+  - internet database
+  english_names:
+  - Internet Database Development
+  course_codes:
+  - COSC0024
+  technologies:
+  - SQL
+  - MySQL
+  - JavaScript
+  - Web
+  assignment_keywords:
+  - project
+  - lab
+  - 课程设计
+malware_analysis:
+  canonical_name: 恶意代码分析与防治技术
+  aliases:
+  - 恶意代码分析与防治技术
+  - 恶意代码分析
+  - malware analysis
+  - malware
+  english_names:
+  - Malware Analysis
+  course_codes:
+  - CSSE0028
+  technologies:
+  - IDA
+  - Ghidra
+  - Python
+  - Sandbox
+  assignment_keywords:
+  - lab
+  - experiment
+  - 实验
+network_technology_application:
+  canonical_name: 网络技术与应用
+  aliases:
+  - 网络技术与应用
+  - 网络技术
+  - network technology
+  - network application
+  english_names:
+  - Network Technology and Application
+  course_codes:
+  - CSSE0038
+  technologies:
+  - TCP/IP
+  - Socket Programming
+  - Wireshark
+  assignment_keywords:
+  - lab
+  - experiment
+  - 实验
+blockchain:
+  canonical_name: 区块链基础及应用
+  aliases:
+  - 区块链基础及应用
+  - 区块链
+  - blockchain
+  english_names:
+  - Blockchain
+  course_codes:
+  - CSSE0042
+  technologies:
+  - Solidity
+  - Ethereum
+  - Go
+  - Python
+  assignment_keywords:
+  - project
+  - lab
+  - 大作业
+computer_graphics:
+  canonical_name: 计算机图形学（高阶课程）
+  aliases:
+  - 计算机图形学
+  - 图形学
+  - computer graphics
+  - graphics
+  english_names:
+  - Computer Graphics
+  course_codes:
+  - CSSE0060
+  technologies:
+  - OpenGL
+  - C/C++
+  - GLSL
+  - WebGL
+  assignment_keywords:
+  - lab
+  - project
+  - 大作业
+big_data_computing:
+  canonical_name: 大数据计算及应用
+  aliases:
+  - 大数据计算及应用
+  - 大数据计算
+  - big data
+  - big data computing
+  english_names:
+  - Big Data Computing
+  course_codes:
+  - COSC0033
+  technologies:
+  - Spark
+  - Hadoop
+  - Python
+  - Scala
+  assignment_keywords:
+  - lab
+  - project
+  - 实验
+speech_processing:
+  canonical_name: 语音信息处理技术
+  aliases:
+  - 语音信息处理技术
+  - 语音信息处理
+  - speech processing
+  - speech information processing
+  english_names:
+  - Speech Information Processing
+  course_codes:
+  - COSC0061
+  technologies:
+  - Python
+  - PyTorch
+  - Librosa
+  assignment_keywords:
+  - lab
+  - project
+  - 实验
+iot_communication:
+  canonical_name: 物联网通信技术
+  aliases:
+  - 物联网通信技术
+  - 物联网通信
+  - 物联网
+  - IoT
+  - iot communication
+  english_names:
+  - IoT Communication
+  course_codes:
+  - CSSE0008
+  technologies:
+  - MQTT
+  - ZigBee
+  - C
+  - Python
+  assignment_keywords:
+  - lab
+  - project
+  - 实验
+intelligent_computing_system:
+  canonical_name: 智能计算系统
+  aliases:
+  - 智能计算系统
+  - 智能计算
+  - intelligent computing system
+  english_names:
+  - Intelligent Computing System
+  course_codes:
+  - CSSE0010
+  technologies:
+  - Python
+  - PyTorch
+  - CUDA
+  - FPGA
+  assignment_keywords:
+  - lab
+  - project
+  - 实验
+network_security:
+  canonical_name: 网络安全技术
+  aliases:
+  - 网络安全技术
+  - 网络安全
+  - cybersecurity
+  - network security
+  english_names:
+  - Network Security
+  course_codes:
+  - CSSE0034
+  technologies:
+  - Wireshark
+  - Python
+  - C
+  - Linux
+  assignment_keywords:
+  - lab
+  - experiment
+  - 实验
+theory_of_computation:
+  canonical_name: 计算理论
+  aliases:
+  - 计算理论
+  - 计算复杂性
+  - 自动机
+  - theory of computation
+  - automata
+  english_names:
+  - Theory of Computation
+  course_codes:
+  - CSSE0051
+  technologies:
+  - LaTeX
+  assignment_keywords:
+  - homework
+  - 作业
+data_security:
+  canonical_name: 数据安全
+  aliases:
+  - 数据安全
+  - data security
+  english_names:
+  - Data Security
+  course_codes:
+  - CSSE0053
+  technologies:
+  - Python
+  - SQL
+  - Cryptography
+  assignment_keywords:
+  - lab
+  - homework
+  - 实验
+computer_systems_frontier:
+  canonical_name: 计算机系统前沿
+  aliases:
+  - 计算机系统前沿
+  - 系统前沿
+  - computer systems frontier
+  english_names:
+  - Computer Systems Frontier
+  course_codes:
+  - COSC0075
+  technologies:
+  - Distributed Systems
+  - Operating System
+  - Computer Architecture
+  assignment_keywords:
+  - report
+  - project
+  - 报告
+java_application:
+  canonical_name: Java语言与应用
+  aliases:
+  - Java语言与应用
+  - Java语言
+  - Java程序设计
+  - java application
+  - java programming
+  english_names:
+  - Java Programming
+  - Java Language and Application
+  course_codes:
+  - COSC0022
+  technologies:
+  - Java
+  - Spring
+  - Maven
+  assignment_keywords:
+  - lab
+  - homework
+  - project
+  - 实验
+python_programming:
+  canonical_name: Python语言程序设计
+  aliases:
+  - Python语言程序设计
+  - Python程序设计
+  - Python语言
+  - python programming
+  english_names:
+  - Python Programming
+  course_codes:
+  - COSC0056
+  technologies:
+  - Python
+  - NumPy
+  - pandas
+  assignment_keywords:
+  - lab
+  - homework
+  - project
+  - 实验
+ai_programming_advanced:
+  canonical_name: 人工智能程序设计（高阶课）
+  aliases:
+  - 人工智能程序设计
+  - 人工智能程序设计高阶课
+  - AI程序设计
+  - ai programming
+  english_names:
+  - AI Programming
+  - Advanced AI Programming
+  course_codes:
+  - COSC0071
+  technologies:
+  - Python
+  - PyTorch
+  - TensorFlow
+  assignment_keywords:
+  - lab
+  - project
+  - 实验
+computer_vision_basic:
+  canonical_name: 计算机视觉基础
+  aliases:
+  - 计算机视觉基础
+  - 计算机视觉
+  - CV基础
+  - computer vision
+  - cv
+  english_names:
+  - Computer Vision Basics
+  - Computer Vision
+  course_codes:
+  - COSC0029
+  technologies:
+  - Python
+  - OpenCV
+  - PyTorch
+  assignment_keywords:
+  - lab
+  - project
+  - 实验
+computer_vision_advanced:
+  canonical_name: 计算机视觉
+  aliases:
+  - 计算机视觉高阶课
+  - 计算机视觉
+  - computer vision
+  - advanced computer vision
+  english_names:
+  - Computer Vision
+  - Advanced Computer Vision
+  course_codes:
+  - COSC0068
+  technologies:
+  - Python
+  - OpenCV
+  - PyTorch
+  - CUDA
+  assignment_keywords:
+  - lab
+  - project
+  - 实验
+cybersecurity_frontier:
+  canonical_name: 密码与网络空间安全国际前沿技术
+  aliases:
+  - 密码与网络空间安全国际前沿技术
+  - 网络空间安全国际前沿
+  - cyber security frontier
+  - cyberspace security frontier
+  english_names:
+  - Frontier Technologies in Cryptography and Cyberspace Security
+  course_codes:
+  - INTL0032
+ai_medicine_frontier:
+  canonical_name: 人工智能在医学和健康医疗中的前沿应用，方法及挑战
+  aliases:
+  - 人工智能在医学和健康医疗中的前沿应用
+  - AI医学前沿
+  - medical ai
+  - ai healthcare
+  english_names:
+  - AI in Medicine and Healthcare
+  course_codes:
+  - INTL0044
+digital_asset_copyright:
+  canonical_name: 三维数字资产版权保护前沿技术
+  aliases:
+  - 三维数字资产版权保护前沿技术
+  - 数字资产版权保护
+  - digital asset copyright
+  english_names:
+  - 3D Digital Asset Copyright Protection
+  course_codes:
+  - INTL0045

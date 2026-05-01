@@ -1,0 +1,125 @@
+# 高校知识库 - 南开大学
+nankai:
+  canonical_name: 南开大学
+  english_names:
+    - Nankai University
+  aliases:
+    - 南开
+    - NKU
+    - nku
+    - nankai
+    - nankai university
+    - nankaiuni
+  tiers:
+    - "985"
+    - "211"
+    - "double_first_class"
+  domains:
+    - nankai.edu.cn
+    - mail.nankai.edu.cn
+  departments:
+    - 计算机学院
+    - 软件学院
+    - 网络空间安全学院
+    - 人工智能学院
+    - College of Computer Science
+    - School of Software
+    - College of Cyber Science
+  city:
+    - 天津
+    - Tianjin
+  github_orgs:
+    - NankaiUniversity
+    - NKU
+  negative_aliases:
+    - 南京大学
+    - Nanjing University
+    - NJU
+  course_code_prefix:
+    - COSC
+    - CS
+    - SE
+  seed_repositories:
+    - Absurdaaa/NKU_CS_courses
+    - TephrocactusHC/NKUCS-SAVE
+    - Starlight0798/NKU-share
+    - fscdc/NKU-CS-HELP
+    - Luhaozhhhhe/NKU_Lab_Report
+    - Luhaozhhhhe/NKU_Final_Exam
+    - Luhaozhhhhe/NKU_Course_Note
+  seed_users:
+    - Luhaozhhhhe
+    - iChubai
+  seed_repository_paths:
+    Absurdaaa/NKU_CS_courses:
+      - 人工智能导论
+      - 大数据计算机应用
+      - 并行程序设计
+      - 操作系统
+      - 数据安全
+      - 数据库
+      - 数据结构（计卓）
+      - 算法导论
+      - 编译原理
+      - 计算机体系结构
+      - 计算机图形学
+      - 计算机系统前沿
+      - 计算机组成原理
+      - 计算机网络
+      - 软件安全
+      - 软件工程
+    TephrocactusHC/NKUCS-SAVE:
+      - AI导论
+      - 信息检索
+      - 区块链
+      - 大数据计算及应用
+      - 密码学
+      - 嵌入式系统
+      - 恶意代码分析与防治技术
+      - 操作系统
+      - 数据库
+      - 数据结构
+      - 机器学习
+      - 汇编语言
+      - 离散数学
+      - 编译原理
+      - 网络技术与应用
+      - 计算机组成原理
+      - 计算机网络
+    Starlight0798/NKU-share:
+      - Python语言程序设计
+      - 人工智能导论
+      - 区块链
+      - 大数据计算及应用
+      - 密码学
+      - 恶意代码
+      - 操作系统
+      - 数据安全
+      - 数据库系统
+      - 算法设计与分析
+      - 编译原理
+      - 网络安全技术
+      - 计算机网络
+      - 计组
+      - 软件安全
+    fscdc/NKU-CS-HELP:
+      - 人工智能导论-大二下
+      - 体系结构-大三上
+      - 大数据计算及应用-大三下
+      - 实习实训-大二下
+      - 并行程序设计-大三下
+      - 操作系统-大三上
+      - 数字逻辑-大二上
+      - 数据可视化-大二上
+      - 数据库-大二下
+      - 数据结构-大二上
+      - 机器学习-大三上
+      - 深度学习-大三下
+      - 算法-大二下
+      - 编译原理-大三上
+      - 自然语言处理-大四上
+      - 计算机系统设计-大三下
+      - 计算机组成原理-大二下
+      - 计算机网络-大三上
+      - 软件安全-大二下
+      - 软件工程-大三下

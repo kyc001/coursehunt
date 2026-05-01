@@ -1,0 +1,17 @@
+[workspace]
+authors = ["kyc001 <852117630@qq.com>"]
+channels = ["conda-forge"]
+name = "coursehunt"
+platforms = ["win-64"]
+version = "0.1.0"
+
+[tasks]
+start = "streamlit run app.py --server.port 8501"
+test = "python -m tests.test_modules"
+
+[dependencies]
+python = "3.12.*"
+streamlit = ">=1.28.0"
+requests = ">=2.31.0"
+python-dotenv = ">=1.0.0"
+pyyaml = ">=6.0.0"
