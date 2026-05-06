@@ -1,6 +1,13 @@
 """
 搜索引擎主流程
 整合查询理解、检索计划、多路召回、RRF 融合、证据抽取、混合排序
+
+三路召回架构：
+- 路 A：GitHub Search API（外部黑盒 BM25 + 多 query 扩展）
+- 路 B：自建 BM25 倒排索引（在持久化的 LocalCorpus 上）
+- 路 C：BGE-M3 稠密向量召回（在持久化的 LocalCorpus 上）
+
+三路结果用 RRF 融合，再走证据抽取和混合排序。
 """
 
 import os
@@ -19,6 +26,11 @@ from .repo_analyzer import RepoAnalyzer
 from .owner_profiler import OwnerProfiler
 from .evidence_builder import get_evidence_builder, RepoEvidence
 from .hybrid_ranker import get_hybrid_ranker
+from .local_corpus import (
+    CorpusDocument, doc_from_repo_data, get_local_corpus,
+)
+from .bm25_indexer import get_bm25_index
+from .dense_retriever import get_dense_retriever
 
 
 @dataclass
@@ -35,6 +47,19 @@ class SearchResult:
     rrf_score: float
 
 
+@dataclass
+class SearchTrace:
+    """单次检索的可观测信息（评测/调试用）。"""
+    intent_type: str = ""
+    api_routes: int = 0
+    api_candidates: int = 0
+    bm25_hits: int = 0
+    dense_hits: int = 0
+    corpus_size: int = 0
+    embedding_added: int = 0
+    embedding_available: bool = False
+
+
 class SearchEngine:
     """搜索引擎"""
 
@@ -49,6 +74,16 @@ class SearchEngine:
         self.fuser = get_rrf_fuser()
         self.school_kb = get_school_kb()
         self.course_kb = get_course_kb()
+        # 三路召回新增组件
+        self.corpus = get_local_corpus()
+        self.dense_retriever = get_dense_retriever()
+        # 评测/调试用：每次 search 写入
+        self.last_trace: SearchTrace = SearchTrace()
+        # 控制开关：评测脚本可临时关闭某些路
+        self.enable_bm25 = True
+        self.enable_dense = True
+        # 控制 dense embedding 在线补算的预算（避免拖慢首次查询）
+        self.dense_max_new_per_query = 20
 
     def search(self, query: str, mode: str = "fast") -> List[SearchResult]:
         """
@@ -61,36 +96,64 @@ class SearchEngine:
         Returns:
             搜索结果列表
         """
+        trace = SearchTrace()
+        trace.embedding_available = self.dense_retriever.available
+
         # 1. 查询理解
         intent = parse_query(query)
+        trace.intent_type = intent.intent_type
 
         # 2. 构建检索计划
         budget = 6 if mode == "fast" else 10
         plan = build_search_plan(intent, budget)
 
-        # 3. 多路召回
+        # 3. 路 A：GitHub API 多路召回
         route_results = self._execute_plan(plan)
         self._add_seed_repositories(route_results, intent)
+        trace.api_routes = len(route_results)
 
-        # 4. RRF 融合
-        candidates = self.fuser.fuse(route_results)
-
-        # 5. Top N 丰富化
+        # 4. 第一轮 RRF（仅 API 路）→ 得到候选用于丰富
+        api_fused = self.fuser.fuse(route_results)
+        trace.api_candidates = len(api_fused)
         enrich_limit = 20 if mode == "fast" else 50
-        enriched = self._enrich_top(candidates[:enrich_limit], intent)
+        enriched = self._enrich_top(api_fused[:enrich_limit], intent)
 
-        # 6. 用户画像
-        self._profile_owners(enriched, intent)
+        # 5. 把丰富后的候选写入本地语料库（持久化，让 BM25/Dense 受益）
+        self._persist_to_corpus(enriched)
+        trace.corpus_size = self.corpus.count()
 
-        # 7. 证据抽取
-        self._build_evidence(enriched, intent)
+        # 6. 路 B：自建 BM25 倒排索引
+        if self.enable_bm25:
+            bm25_repos = self._bm25_route(query, enriched)
+            trace.bm25_hits = len(bm25_repos)
+            if bm25_repos:
+                route_results["local_bm25"] = bm25_repos
 
-        # 8. 混合排序
-        ranked = self.ranker.rank(enriched, intent)
+        # 7. 路 C：BGE-M3 稠密向量召回
+        if self.enable_dense and self.dense_retriever.available:
+            new_emb = self.dense_retriever.ensure_embeddings(
+                self.corpus, max_new=self.dense_max_new_per_query
+            )
+            trace.embedding_added = new_emb
+            self.dense_retriever.load(self.corpus, force=bool(new_emb))
+            dense_repos = self._dense_route(query, enriched)
+            trace.dense_hits = len(dense_repos)
+            if dense_repos:
+                route_results["local_dense"] = dense_repos
 
-        # 9. 构建最终结果
+        # 8. 三路 RRF 融合
+        fused = self.fuser.fuse(route_results)
+
+        # 9. 合并已 enriched 的详细数据，对新增候选构造 minimal repo_data
+        merged = self._merge_with_enriched(fused, enriched, enrich_limit)
+
+        # 10. 用户画像、证据、排序、最终结果
+        self._profile_owners(merged, intent)
+        self._build_evidence(merged, intent)
+        ranked = self.ranker.rank(merged, intent)
         results = self._build_results(ranked)
 
+        self.last_trace = trace
         return results
 
     def _execute_plan(self, plan: SearchPlan) -> Dict[str, List[dict]]:
@@ -248,6 +311,130 @@ class SearchEngine:
             enriched.append(candidate)
 
         return enriched
+
+    def _persist_to_corpus(self, enriched: List[dict]):
+        """把 enriched 候选写入本地语料库，供 BM25/Dense 使用。"""
+        for item in enriched:
+            repo_data = item.get("repo_data") or {}
+            if not repo_data.get("full_name"):
+                continue
+            doc = doc_from_repo_data(repo_data)
+            if not doc.full_name:
+                continue
+            self.corpus.upsert(doc)
+
+    def _bm25_route(self, query: str, enriched: List[dict],
+                     top_k: int = 30) -> List[dict]:
+        """BM25 路（作为重排序信号）：只对已在 API 候选集内的仓库重新排序，
+        不引入新的候选，避免在小语料场景下稀释精确匹配的 top。"""
+        index = get_bm25_index()
+        hits = index.search(query, top_k=top_k * 3)
+        if not hits:
+            return []
+        allowed = {
+            (item.get("repo_data") or {}).get("full_name", "")
+            for item in enriched
+        }
+        allowed.discard("")
+        hits = [(fn, s) for fn, s in hits if fn in allowed][:top_k]
+        if not hits:
+            return []
+        return self._materialize_hits(hits, enriched)
+
+    def _dense_route(self, query: str, enriched: List[dict],
+                     top_k: int = 30) -> List[dict]:
+        """Dense 路（作为重排序信号）：BGE-M3 余弦近邻在 API 候选集上重排序。"""
+        hits = self.dense_retriever.search(query, top_k=top_k * 3)
+        if not hits:
+            return []
+        allowed = {
+            (item.get("repo_data") or {}).get("full_name", "")
+            for item in enriched
+        }
+        allowed.discard("")
+        hits = [(fn, s) for fn, s in hits if fn in allowed][:top_k]
+        if not hits:
+            return []
+        return self._materialize_hits(hits, enriched)
+
+    def _materialize_hits(self, hits: List, enriched: List[dict]) -> List[dict]:
+        """把 (full_name, score) 命中转成完整 repo dict 列表。
+
+        - 若 full_name 在 enriched 中，复用其 repo_data（保留 README、画像等已有字段）
+        - 否则从 LocalCorpus 反查并构造一份 minimal 但带 README 的 dict
+        - 仍找不到的（不应该出现）跳过
+
+        返回的列表保持 hits 的相对顺序，供 RRF 使用。
+        """
+        enriched_map = {}
+        for item in enriched:
+            repo_data = item.get("repo_data") or {}
+            full_name = repo_data.get("full_name", "")
+            if full_name:
+                enriched_map[full_name] = repo_data
+
+        materialized: List[dict] = []
+        for full_name, _score in hits:
+            if full_name in enriched_map:
+                materialized.append(enriched_map[full_name])
+                continue
+
+            doc = self.corpus.get(full_name)
+            if not doc:
+                continue
+            owner_login = full_name.split("/", 1)[0] if "/" in full_name else ""
+            materialized.append({
+                "full_name": full_name,
+                "name": doc.name,
+                "owner": {"login": owner_login},
+                "html_url": f"https://github.com/{full_name}",
+                "description": doc.description,
+                "readme_text": doc.readme,
+                "topics": doc.topics,
+                "tree_paths": doc.paths,
+                "language": doc.language,
+                "stargazers_count": doc.stars,
+                "forks_count": doc.forks,
+                "pushed_at": doc.pushed_at,
+            })
+
+        return materialized
+
+    def _merge_with_enriched(self, fused: List[dict], enriched: List[dict],
+                              limit: int) -> List[dict]:
+        """三路 RRF 融合后，把每个候选包成 ranker 需要的形态。
+
+        返回元素结构：{repo_data, rrf_score, owner_context(待填), evidence(待填)}
+        """
+        enriched_items = {}
+        for item in enriched:
+            repo_data = item.get("repo_data") or {}
+            full_name = repo_data.get("full_name", "")
+            if full_name:
+                enriched_items[full_name] = item
+
+        merged: List[dict] = []
+        for repo in fused[:limit]:
+            full_name = repo.get("full_name", "")
+            if not full_name:
+                continue
+
+            rrf_score = repo.get("rrf_score", 0.0)
+
+            if full_name in enriched_items:
+                base = enriched_items[full_name]
+                base["rrf_score"] = rrf_score
+                base.setdefault("repo_data", repo)
+                merged.append(base)
+                continue
+
+            # 新候选：fused 中已经把 repo_data 平铺了，直接当 repo_data
+            merged.append({
+                "repo_data": repo,
+                "rrf_score": rrf_score,
+            })
+
+        return merged
 
     def _profile_owners(self, enriched: List[dict], intent: QueryIntent):
         """分析用户画像"""

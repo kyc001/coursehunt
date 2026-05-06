@@ -1,0 +1,845 @@
+{
+  "api_only": [
+    {
+      "query": "南开 操作系统 lab2",
+      "intent": "specific",
+      "top": [
+        {
+          "repo": "Luhaozhhhhe/NKU_Lab_Report"
+        },
+        {
+          "repo": "lazy-forever/NKU_OS_24fall"
+        },
+        {
+          "repo": "Luhaozhhhhe/NKU_Final_Exam"
+        },
+        {
+          "repo": "luyanhexay/NKU-OS-2025Fall-labcode"
+        },
+        {
+          "repo": "TephrocactusHC/NKUCS-SAVE"
+        },
+        {
+          "repo": "ca1cu1ation/OS"
+        },
+        {
+          "repo": "zayne017/OS2025"
+        },
+        {
+          "repo": "suhipek/nku_os"
+        },
+        {
+          "repo": "nsndhx/os_kernal_lab"
+        },
+        {
+          "repo": "fscdc/NKU-CS-HELP"
+        }
+      ]
+    },
+    {
+      "query": "南开 并行程序设计 lab1",
+      "intent": "specific",
+      "top": [
+        {
+          "repo": "iChubai/NKU-Parallel-Computing"
+        },
+        {
+          "repo": "fscdc/NKU-CS-HELP"
+        },
+        {
+          "repo": "Clash727/parallel_repository"
+        },
+        {
+          "repo": "KanateKuro/-lab1"
+        },
+        {
+          "repo": "Absurdaaa/NKU_CS_courses"
+        },
+        {
+          "repo": "Luhaozhhhhe/NKU_Lab_Report"
+        },
+        {
+          "repo": "Luhaozhhhhe/NKU_Final_Exam"
+        },
+        {
+          "repo": "Starlight0798/NKU-share"
+        },
+        {
+          "repo": "TephrocactusHC/NKUCS-SAVE"
+        },
+        {
+          "repo": "Luhaozhhhhe/NKU_Course_Note"
+        }
+      ]
+    },
+    {
+      "query": "南开 编译原理 lab",
+      "intent": "specific",
+      "top": [
+        {
+          "repo": "Luhaozhhhhe/NKU_Lab_Report"
+        },
+        {
+          "repo": "Luhaozhhhhe/NKU_Final_Exam"
+        },
+        {
+          "repo": "AnthonyHaozeZhu/Compiler"
+        },
+        {
+          "repo": "yuhuifishash/NKU-Compilers2024-RV64GC"
+        },
+        {
+          "repo": "TephrocactusHC/NKUCS-SAVE"
+        },
+        {
+          "repo": "CentaureaHO/NKU-Compiler2025"
+        },
+        {
+          "repo": "Absurdaaa/NKU_CS_courses"
+        },
+        {
+          "repo": "ZhaoYang0125/NKU_Complier"
+        },
+        {
+          "repo": "fscdc/NKU-CS-HELP"
+        },
+        {
+          "repo": "NKU-EnochYang/C-Compiler-with-Yacc-and-Lex"
+        }
+      ]
+    },
+    {
+      "query": "南开 数据结构 hw1",
+      "intent": "specific",
+      "top": [
+        {
+          "repo": "Luhaozhhhhe/NKU_Lab_Report"
+        },
+        {
+          "repo": "Luhaozhhhhe/NKU_Final_Exam"
+        },
+        {
+          "repo": "fscdc/NKU-CS-HELP"
+        },
+        {
+          "repo": "Absurdaaa/NKU_CS_courses"
+        },
+        {
+          "repo": "TephrocactusHC/NKUCS-SAVE"
+        },
+        {
+          "repo": "Luhaozhhhhe/NKU_Course_Note"
+        },
+        {
+          "repo": "Starlight0798/NKU-share"
+        }
+      ]
+    },
+    {
+      "query": "南开 编译原理",
+      "intent": "school_course",
+      "top": [
+        {
+          "repo": "Luhaozhhhhe/NKU_Lab_Report"
+        },
+        {
+          "repo": "Luhaozhhhhe/NKU_Final_Exam"
+        },
+        {
+          "repo": "AnthonyHaozeZhu/Compiler"
+        },
+        {
+          "repo": "TephrocactusHC/NKUCS-SAVE"
+        },
+        {
+          "repo": "yuhuifishash/NKU-Compilers2024-RV64GC"
+        },
+        {
+          "repo": "Molotovgirl1/NKUCS_Principles-of-Compiler-Design"
+        },
+        {
+          "repo": "NKU-EnochYang/C-Compiler-with-Yacc-and-Lex"
+        },
+        {
+          "repo": "ZhaoYang0125/NKU_Complier"
+        },
+        {
+          "repo": "Absurdaaa/NKU_CS_courses"
+        },
+        {
+          "repo": "fscdc/NKU-CS-HELP"
+        }
+      ]
+    },
+    {
+      "query": "南开 数据库",
+      "intent": "school_course",
+      "top": [
+        {
+          "repo": "Luhaozhhhhe/NKU_Lab_Report"
+        },
+        {
+          "repo": "Luhaozhhhhe/NKU_Final_Exam"
+        },
+        {
+          "repo": "TephrocactusHC/NKUCS-SAVE"
+        },
+        {
+          "repo": "HardenMYG/VALORANT_DataBase"
+        },
+        {
+          "repo": "Absurdaaa/NKU_CS_courses"
+        },
+        {
+          "repo": "fscdc/NKU-CS-HELP"
+        },
+        {
+          "repo": "Starlight0798/NKU-share"
+        },
+        {
+          "repo": "ywc0001/nku-courses"
+        },
+        {
+          "repo": "mingxuZhang2/DataBase-System"
+        },
+        {
+          "repo": "Luhaozhhhhe/NKU_Course_Note"
+        }
+      ]
+    },
+    {
+      "query": "南开 信息检索",
+      "intent": "school_course",
+      "top": [
+        {
+          "repo": "Luhaozhhhhe/NKU_Lab_Report"
+        },
+        {
+          "repo": "1Reminding/Web-Search-Engine"
+        },
+        {
+          "repo": "TephrocactusHC/NKUCS-SAVE"
+        },
+        {
+          "repo": "lalaZZB/NKU_Information-Retrieval-System"
+        },
+        {
+          "repo": "ThinnyPaper/NKU-Search-Engine"
+        },
+        {
+          "repo": "nkufree/SearchEngine"
+        },
+        {
+          "repo": "nkufree/retrieval_lab1"
+        },
+        {
+          "repo": "1Reminding/MediChain-LLM-Agent"
+        },
+        {
+          "repo": "sjq0098/NKU_IR"
+        },
+        {
+          "repo": "Liujuntong0204/nkdex_WebSearchEngine"
+        }
+      ]
+    },
+    {
+      "query": "nku compiler",
+      "intent": "school_course",
+      "top": [
+        {
+          "repo": "Luhaozhhhhe/NKU_Lab_Report"
+        },
+        {
+          "repo": "Luhaozhhhhe/NKU_Final_Exam"
+        },
+        {
+          "repo": "AnthonyHaozeZhu/Compiler"
+        },
+        {
+          "repo": "TephrocactusHC/NKUCS-SAVE"
+        },
+        {
+          "repo": "yuhuifishash/NKU-Compilers2024-RV64GC"
+        },
+        {
+          "repo": "Molotovgirl1/NKUCS_Principles-of-Compiler-Design"
+        },
+        {
+          "repo": "NKU-EnochYang/C-Compiler-with-Yacc-and-Lex"
+        },
+        {
+          "repo": "ZhaoYang0125/NKU_Complier"
+        },
+        {
+          "repo": "Absurdaaa/NKU_CS_courses"
+        },
+        {
+          "repo": "fscdc/NKU-CS-HELP"
+        }
+      ]
+    }
+  ],
+  "+bm25": [
+    {
+      "query": "南开 操作系统 lab2",
+      "intent": "specific",
+      "top": [
+        {
+          "repo": "Luhaozhhhhe/NKU_Lab_Report"
+        },
+        {
+          "repo": "Luhaozhhhhe/NKU_Final_Exam"
+        },
+        {
+          "repo": "luyanhexay/NKU-OS-2025Fall-labcode"
+        },
+        {
+          "repo": "TephrocactusHC/NKUCS-SAVE"
+        },
+        {
+          "repo": "ca1cu1ation/OS"
+        },
+        {
+          "repo": "zayne017/OS2025"
+        },
+        {
+          "repo": "suhipek/nku_os"
+        },
+        {
+          "repo": "nsndhx/os_kernal_lab"
+        },
+        {
+          "repo": "fscdc/NKU-CS-HELP"
+        },
+        {
+          "repo": "kyc001/coursehunt"
+        }
+      ]
+    },
+    {
+      "query": "南开 并行程序设计 lab1",
+      "intent": "specific",
+      "top": [
+        {
+          "repo": "iChubai/NKU-Parallel-Computing"
+        },
+        {
+          "repo": "DING4526/NKU-Parallel_programming_Lab1_CPU"
+        },
+        {
+          "repo": "fscdc/NKU-CS-HELP"
+        },
+        {
+          "repo": "Clash727/parallel_repository"
+        },
+        {
+          "repo": "KanateKuro/-lab1"
+        },
+        {
+          "repo": "Absurdaaa/NKU_CS_courses"
+        },
+        {
+          "repo": "tsing253/NKU-parallel"
+        },
+        {
+          "repo": "Luhaozhhhhe/NKU_Lab_Report"
+        },
+        {
+          "repo": "Luhaozhhhhe/NKU_Final_Exam"
+        },
+        {
+          "repo": "nautilus639/parallel_lab1_for_nkucs"
+        }
+      ]
+    },
+    {
+      "query": "南开 编译原理 lab",
+      "intent": "specific",
+      "top": [
+        {
+          "repo": "Luhaozhhhhe/NKU_Lab_Report"
+        },
+        {
+          "repo": "Luhaozhhhhe/NKU_Final_Exam"
+        },
+        {
+          "repo": "AnthonyHaozeZhu/Compiler"
+        },
+        {
+          "repo": "yuhuifishash/NKU-Compilers2024-RV64GC"
+        },
+        {
+          "repo": "TephrocactusHC/NKUCS-SAVE"
+        },
+        {
+          "repo": "luyanhexay/NKU-OS-2025Fall-labcode"
+        },
+        {
+          "repo": "Absurdaaa/NKU_CS_courses"
+        },
+        {
+          "repo": "ZhaoYang0125/NKU_Complier"
+        },
+        {
+          "repo": "fscdc/NKU-CS-HELP"
+        },
+        {
+          "repo": "NKU-EnochYang/C-Compiler-with-Yacc-and-Lex"
+        }
+      ]
+    },
+    {
+      "query": "南开 数据结构 hw1",
+      "intent": "specific",
+      "top": [
+        {
+          "repo": "Luhaozhhhhe/NKU_Lab_Report"
+        },
+        {
+          "repo": "Luhaozhhhhe/NKU_Final_Exam"
+        },
+        {
+          "repo": "fscdc/NKU-CS-HELP"
+        },
+        {
+          "repo": "Absurdaaa/NKU_CS_courses"
+        },
+        {
+          "repo": "TephrocactusHC/NKUCS-SAVE"
+        },
+        {
+          "repo": "Luhaozhhhhe/NKU_Course_Note"
+        },
+        {
+          "repo": "Starlight0798/NKU-share"
+        }
+      ]
+    },
+    {
+      "query": "南开 编译原理",
+      "intent": "school_course",
+      "top": [
+        {
+          "repo": "Luhaozhhhhe/NKU_Lab_Report"
+        },
+        {
+          "repo": "Luhaozhhhhe/NKU_Final_Exam"
+        },
+        {
+          "repo": "AnthonyHaozeZhu/Compiler"
+        },
+        {
+          "repo": "TephrocactusHC/NKUCS-SAVE"
+        },
+        {
+          "repo": "yuhuifishash/NKU-Compilers2024-RV64GC"
+        },
+        {
+          "repo": "Molotovgirl1/NKUCS_Principles-of-Compiler-Design"
+        },
+        {
+          "repo": "NKU-EnochYang/C-Compiler-with-Yacc-and-Lex"
+        },
+        {
+          "repo": "ZhaoYang0125/NKU_Complier"
+        },
+        {
+          "repo": "Absurdaaa/NKU_CS_courses"
+        },
+        {
+          "repo": "fscdc/NKU-CS-HELP"
+        }
+      ]
+    },
+    {
+      "query": "南开 数据库",
+      "intent": "school_course",
+      "top": [
+        {
+          "repo": "Luhaozhhhhe/NKU_Lab_Report"
+        },
+        {
+          "repo": "Luhaozhhhhe/NKU_Final_Exam"
+        },
+        {
+          "repo": "TephrocactusHC/NKUCS-SAVE"
+        },
+        {
+          "repo": "HardenMYG/VALORANT_DataBase"
+        },
+        {
+          "repo": "Absurdaaa/NKU_CS_courses"
+        },
+        {
+          "repo": "fscdc/NKU-CS-HELP"
+        },
+        {
+          "repo": "Starlight0798/NKU-share"
+        },
+        {
+          "repo": "ywc0001/nku-courses"
+        },
+        {
+          "repo": "mingxuZhang2/DataBase-System"
+        },
+        {
+          "repo": "Luhaozhhhhe/NKU_Course_Note"
+        }
+      ]
+    },
+    {
+      "query": "南开 信息检索",
+      "intent": "school_course",
+      "top": [
+        {
+          "repo": "Luhaozhhhhe/NKU_Lab_Report"
+        },
+        {
+          "repo": "1Reminding/Web-Search-Engine"
+        },
+        {
+          "repo": "TephrocactusHC/NKUCS-SAVE"
+        },
+        {
+          "repo": "lalaZZB/NKU_Information-Retrieval-System"
+        },
+        {
+          "repo": "ThinnyPaper/NKU-Search-Engine"
+        },
+        {
+          "repo": "nkufree/SearchEngine"
+        },
+        {
+          "repo": "nkufree/retrieval_lab1"
+        },
+        {
+          "repo": "1Reminding/MediChain-LLM-Agent"
+        },
+        {
+          "repo": "sjq0098/NKU_IR"
+        },
+        {
+          "repo": "Liujuntong0204/nkdex_WebSearchEngine"
+        }
+      ]
+    },
+    {
+      "query": "nku compiler",
+      "intent": "school_course",
+      "top": [
+        {
+          "repo": "Luhaozhhhhe/NKU_Lab_Report"
+        },
+        {
+          "repo": "Luhaozhhhhe/NKU_Final_Exam"
+        },
+        {
+          "repo": "AnthonyHaozeZhu/Compiler"
+        },
+        {
+          "repo": "TephrocactusHC/NKUCS-SAVE"
+        },
+        {
+          "repo": "yuhuifishash/NKU-Compilers2024-RV64GC"
+        },
+        {
+          "repo": "Molotovgirl1/NKUCS_Principles-of-Compiler-Design"
+        },
+        {
+          "repo": "NKU-EnochYang/C-Compiler-with-Yacc-and-Lex"
+        },
+        {
+          "repo": "ZhaoYang0125/NKU_Complier"
+        },
+        {
+          "repo": "Absurdaaa/NKU_CS_courses"
+        },
+        {
+          "repo": "fscdc/NKU-CS-HELP"
+        }
+      ]
+    }
+  ],
+  "full": [
+    {
+      "query": "南开 操作系统 lab2",
+      "intent": "specific",
+      "top": [
+        {
+          "repo": "Luhaozhhhhe/NKU_Lab_Report"
+        },
+        {
+          "repo": "Luhaozhhhhe/NKU_Final_Exam"
+        },
+        {
+          "repo": "luyanhexay/NKU-OS-2025Fall-labcode"
+        },
+        {
+          "repo": "TephrocactusHC/NKUCS-SAVE"
+        },
+        {
+          "repo": "ca1cu1ation/OS"
+        },
+        {
+          "repo": "zayne017/OS2025"
+        },
+        {
+          "repo": "suhipek/nku_os"
+        },
+        {
+          "repo": "nsndhx/os_kernal_lab"
+        },
+        {
+          "repo": "fscdc/NKU-CS-HELP"
+        },
+        {
+          "repo": "kyc001/coursehunt"
+        }
+      ]
+    },
+    {
+      "query": "南开 并行程序设计 lab1",
+      "intent": "specific",
+      "top": [
+        {
+          "repo": "iChubai/NKU-Parallel-Computing"
+        },
+        {
+          "repo": "DING4526/NKU-Parallel_programming_Lab1_CPU"
+        },
+        {
+          "repo": "fscdc/NKU-CS-HELP"
+        },
+        {
+          "repo": "Clash727/parallel_repository"
+        },
+        {
+          "repo": "KanateKuro/-lab1"
+        },
+        {
+          "repo": "Absurdaaa/NKU_CS_courses"
+        },
+        {
+          "repo": "tsing253/NKU-parallel"
+        },
+        {
+          "repo": "Luhaozhhhhe/NKU_Lab_Report"
+        },
+        {
+          "repo": "Luhaozhhhhe/NKU_Final_Exam"
+        },
+        {
+          "repo": "nautilus639/parallel_lab1_for_nkucs"
+        }
+      ]
+    },
+    {
+      "query": "南开 编译原理 lab",
+      "intent": "specific",
+      "top": [
+        {
+          "repo": "Luhaozhhhhe/NKU_Lab_Report"
+        },
+        {
+          "repo": "Luhaozhhhhe/NKU_Final_Exam"
+        },
+        {
+          "repo": "AnthonyHaozeZhu/Compiler"
+        },
+        {
+          "repo": "yuhuifishash/NKU-Compilers2024-RV64GC"
+        },
+        {
+          "repo": "TephrocactusHC/NKUCS-SAVE"
+        },
+        {
+          "repo": "luyanhexay/NKU-OS-2025Fall-labcode"
+        },
+        {
+          "repo": "Absurdaaa/NKU_CS_courses"
+        },
+        {
+          "repo": "ZhaoYang0125/NKU_Complier"
+        },
+        {
+          "repo": "fscdc/NKU-CS-HELP"
+        },
+        {
+          "repo": "NKU-EnochYang/C-Compiler-with-Yacc-and-Lex"
+        }
+      ]
+    },
+    {
+      "query": "南开 数据结构 hw1",
+      "intent": "specific",
+      "top": [
+        {
+          "repo": "Luhaozhhhhe/NKU_Lab_Report"
+        },
+        {
+          "repo": "Luhaozhhhhe/NKU_Final_Exam"
+        },
+        {
+          "repo": "fscdc/NKU-CS-HELP"
+        },
+        {
+          "repo": "Absurdaaa/NKU_CS_courses"
+        },
+        {
+          "repo": "TephrocactusHC/NKUCS-SAVE"
+        },
+        {
+          "repo": "Luhaozhhhhe/NKU_Course_Note"
+        },
+        {
+          "repo": "Starlight0798/NKU-share"
+        }
+      ]
+    },
+    {
+      "query": "南开 编译原理",
+      "intent": "school_course",
+      "top": [
+        {
+          "repo": "Luhaozhhhhe/NKU_Lab_Report"
+        },
+        {
+          "repo": "Luhaozhhhhe/NKU_Final_Exam"
+        },
+        {
+          "repo": "AnthonyHaozeZhu/Compiler"
+        },
+        {
+          "repo": "TephrocactusHC/NKUCS-SAVE"
+        },
+        {
+          "repo": "yuhuifishash/NKU-Compilers2024-RV64GC"
+        },
+        {
+          "repo": "Molotovgirl1/NKUCS_Principles-of-Compiler-Design"
+        },
+        {
+          "repo": "NKU-EnochYang/C-Compiler-with-Yacc-and-Lex"
+        },
+        {
+          "repo": "ZhaoYang0125/NKU_Complier"
+        },
+        {
+          "repo": "Absurdaaa/NKU_CS_courses"
+        },
+        {
+          "repo": "fscdc/NKU-CS-HELP"
+        }
+      ]
+    },
+    {
+      "query": "南开 数据库",
+      "intent": "school_course",
+      "top": [
+        {
+          "repo": "Luhaozhhhhe/NKU_Lab_Report"
+        },
+        {
+          "repo": "Luhaozhhhhe/NKU_Final_Exam"
+        },
+        {
+          "repo": "TephrocactusHC/NKUCS-SAVE"
+        },
+        {
+          "repo": "HardenMYG/VALORANT_DataBase"
+        },
+        {
+          "repo": "Absurdaaa/NKU_CS_courses"
+        },
+        {
+          "repo": "fscdc/NKU-CS-HELP"
+        },
+        {
+          "repo": "Starlight0798/NKU-share"
+        },
+        {
+          "repo": "ywc0001/nku-courses"
+        },
+        {
+          "repo": "mingxuZhang2/DataBase-System"
+        },
+        {
+          "repo": "Luhaozhhhhe/NKU_Course_Note"
+        }
+      ]
+    },
+    {
+      "query": "南开 信息检索",
+      "intent": "school_course",
+      "top": [
+        {
+          "repo": "Luhaozhhhhe/NKU_Lab_Report"
+        },
+        {
+          "repo": "1Reminding/Web-Search-Engine"
+        },
+        {
+          "repo": "TephrocactusHC/NKUCS-SAVE"
+        },
+        {
+          "repo": "lalaZZB/NKU_Information-Retrieval-System"
+        },
+        {
+          "repo": "ThinnyPaper/NKU-Search-Engine"
+        },
+        {
+          "repo": "nkufree/SearchEngine"
+        },
+        {
+          "repo": "nkufree/retrieval_lab1"
+        },
+        {
+          "repo": "1Reminding/MediChain-LLM-Agent"
+        },
+        {
+          "repo": "sjq0098/NKU_IR"
+        },
+        {
+          "repo": "Liujuntong0204/nkdex_WebSearchEngine"
+        }
+      ]
+    },
+    {
+      "query": "nku compiler",
+      "intent": "school_course",
+      "top": [
+        {
+          "repo": "Luhaozhhhhe/NKU_Lab_Report"
+        },
+        {
+          "repo": "Luhaozhhhhe/NKU_Final_Exam"
+        },
+        {
+          "repo": "AnthonyHaozeZhu/Compiler"
+        },
+        {
+          "repo": "TephrocactusHC/NKUCS-SAVE"
+        },
+        {
+          "repo": "yuhuifishash/NKU-Compilers2024-RV64GC"
+        },
+        {
+          "repo": "CentaureaHO/NKU-Compiler2025"
+        },
+        {
+          "repo": "NKU-EnochYang/C-Compiler-with-Yacc-and-Lex"
+        },
+        {
+          "repo": "ZhaoYang0125/NKU_Complier"
+        },
+        {
+          "repo": "Absurdaaa/NKU_CS_courses"
+        },
+        {
+          "repo": "fscdc/NKU-CS-HELP"
+        }
+      ]
+    }
+  ]
+}

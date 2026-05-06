@@ -254,7 +254,7 @@ class QueryExpander:
         if not api_key:
             return {}, []
 
-        base_url = os.getenv("OPENAI_BASE_URL", "https://api.openai.com/v1").rstrip("/")
+        base_url = os.getenv("OPENAI_BASE_URL", "http://127.0.0.1:8899/api/v1").rstrip("/")
         model = os.getenv("OPENAI_MODEL", "openai/gpt-oss-120b:free")
         prompt = self._llm_prompt(intent, school_aliases, course_aliases, resource_aliases)
         headers = {

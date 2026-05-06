@@ -113,7 +113,9 @@ def merge_with_source_bonus(rrf_results: List[Tuple[str, float, List[str]]],
             "reverse": 0.12,
             "english": 0.12,
             "resource": 0.08,
-            "github": 0.06
+            "github": 0.06,
+            "local_bm25": 0.08,
+            "local_dense": 0.08,
         }
 
     results = []
@@ -150,6 +152,10 @@ def _source_bonus_key(route_name: str, source_bonus: Dict[str, float]) -> str:
         return "english"
     if route_name.startswith("github"):
         return "github"
+    if route_name.startswith("local_bm25"):
+        return "local_bm25"
+    if route_name.startswith("local_dense"):
+        return "local_dense"
     return route_name.split("_", 1)[0]
 
 
@@ -172,7 +178,9 @@ class RRFFuser:
             "reverse": 0.12,
             "english": 0.12,
             "resource": 0.08,
-            "github": 0.06
+            "github": 0.06,
+            "local_bm25": 0.08,
+            "local_dense": 0.08,
         }
 
     def fuse(self, route_results: Dict[str, List[dict]]) -> List[dict]:
