@@ -224,27 +224,31 @@ class BM25Index:
 # ----- 单例与便捷接口 -----
 
 _index: Optional[BM25Index] = None
-_index_signature: Optional[int] = None  # 用语料数判断是否需要重建
+_indexed_docs: set = set()  # 已索引的 doc full_name，用于增量更新
 
 
 def get_bm25_index(force_rebuild: bool = False) -> BM25Index:
-    """取得 BM25 索引；按语料库当前文档数自动决定是否重建。"""
-    global _index, _index_signature
+    """取得 BM25 索引；增量更新新文档，避免每次全量重建。"""
+    global _index, _indexed_docs
 
     corpus = get_local_corpus()
-    current_count = corpus.count()
 
-    needs_build = (
-        _index is None
-        or force_rebuild
-        or _index_signature != current_count
-    )
-
-    if needs_build:
+    if _index is None or force_rebuild:
         idx = BM25Index()
         idx.build_from_corpus(corpus)
         _index = idx
-        _index_signature = current_count
+        _indexed_docs = {doc.full_name for doc in corpus.list_all(with_embedding=False)}
+        return _index
+
+    # 增量索引：只加入语料库中新增的文档
+    new_docs = [
+        doc for doc in corpus.list_all(with_embedding=False)
+        if doc.full_name not in _indexed_docs
+    ]
+    if new_docs:
+        for doc in new_docs:
+            _index.add_document(doc.full_name, doc.doc_text())
+        _indexed_docs = {doc.full_name for doc in corpus.list_all(with_embedding=False)}
 
     return _index
 

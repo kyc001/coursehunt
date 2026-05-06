@@ -74,18 +74,28 @@ def main():
             engine.github.clear_cache()
             st.success("缓存已清除")
 
+    # 初始化 session_state
+    if "do_search" not in st.session_state:
+        st.session_state.do_search = False
+    if "search_query" not in st.session_state:
+        st.session_state.search_query = ""
+
     # 主界面
     col1, col2 = st.columns([3, 1])
 
     with col1:
         course_input = st.text_input(
             "输入课程名称或查询",
-            placeholder="例如：南开 并行程序设计 lab2"
+            placeholder="例如：南开 并行程序设计 lab2",
+            value=st.session_state.search_query,
+            key="query_input",
         )
 
     with col2:
         st.markdown("<br>", unsafe_allow_html=True)
-        search_button = st.button("搜索", type="primary", use_container_width=True)
+        if st.button("搜索", type="primary", use_container_width=True) and course_input:
+            st.session_state.search_query = course_input
+            st.session_state.do_search = True
 
     # 预设课程快捷按钮
     st.markdown("**快捷搜索：**")
@@ -104,21 +114,22 @@ def main():
     for i, query in enumerate(preset_queries):
         with preset_cols[i % len(preset_cols)]:
             if st.button(query, use_container_width=True):
-                course_input = query
-                search_button = True
+                st.session_state.search_query = query
+                st.session_state.do_search = True
 
-    # 查询解析预览
-    if course_input:
-        intent = parse_query(course_input)
+    # 查询解析预览（只要有输入就显示）
+    current_query = course_input or ""
+    if current_query:
+        intent = parse_query(current_query)
         with st.expander("查询解析结果", expanded=False):
-            col1, col2, col3 = st.columns(3)
-            with col1:
+            col_a, col_b, col_c = st.columns(3)
+            with col_a:
                 st.markdown(f"**学校:** {intent.school or '未识别'}")
                 st.markdown(f"**课程:** {intent.course or '未识别'}")
-            with col2:
+            with col_b:
                 st.markdown(f"**作业类型:** {intent.assignment_type or '未识别'}")
                 st.markdown(f"**作业编号:** {intent.assignment_number or '未识别'}")
-            with col3:
+            with col_c:
                 st.markdown(f"**意图类型:** {intent.intent_type}")
                 st.markdown(f"**解析置信度:** {intent.confidence:.0%}")
         with st.expander("检索计划预览", expanded=False):
@@ -127,8 +138,9 @@ def main():
                 st.markdown(f"- `{task.route}` `{task.query}`")
 
     # 执行搜索
-    if search_button and course_input:
-        perform_search(course_input, mode, max_results)
+    if st.session_state.do_search and st.session_state.search_query:
+        perform_search(st.session_state.search_query, mode, max_results)
+        st.session_state.do_search = False
 
 
 def perform_search(query: str, mode: str, max_results: int):
