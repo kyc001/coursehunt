@@ -3,6 +3,7 @@
 分析 GitHub 用户的学校背景
 """
 
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Dict, List, Optional
 from dataclasses import dataclass, field
 
@@ -54,18 +55,19 @@ class OwnerProfiler:
 
     def batch_profile(self, usernames: List[str], school_id: str) -> Dict[str, dict]:
         """
-        批量分析用户
-
-        Args:
-            usernames: 用户名列表
-            school_id: 目标学校 ID
-
-        Returns:
-            {username: profile_dict}
+        批量分析用户（并行）。
         """
         results = {}
-        for username in usernames:
-            results[username] = self.profile(username, school_id)
+        if not usernames:
+            return results
+        with ThreadPoolExecutor(max_workers=min(len(usernames), 8)) as executor:
+            futures = {executor.submit(self.profile, u, school_id): u for u in usernames}
+            for future in as_completed(futures):
+                username = futures[future]
+                try:
+                    results[username] = future.result()
+                except Exception:
+                    results[username] = {"school_confidence": 0, "total_repos": 0}
         return results
 
     def _analyze_user(self, profile: dict, repos: list, school_id: str) -> dict:

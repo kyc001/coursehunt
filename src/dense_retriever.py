@@ -127,13 +127,27 @@ class EmbeddingClient:
             return None
 
     def embed_many(self, texts: List[str], pause_seconds: float = 0.0) -> List[Optional[List[float]]]:
-        """串行 embedding（SiliconFlow 免费额度对并发敏感，默认串行）。"""
-        results: List[Optional[List[float]]] = []
-        for text in texts:
-            results.append(self.embed(text))
-            if pause_seconds > 0:
+        """并行 embedding（若 pause_seconds=0，并发发送；否则逐条带间隔）。"""
+        if not texts:
+            return []
+        if pause_seconds > 0:
+            results: List[Optional[List[float]]] = []
+            for text in texts:
+                results.append(self.embed(text))
                 time.sleep(pause_seconds)
-        return results
+            return results
+        # 并行模式
+        from concurrent.futures import ThreadPoolExecutor, as_completed
+        ordered: List[Optional[List[float]]] = [None] * len(texts)
+        with ThreadPoolExecutor(max_workers=min(len(texts), 6)) as executor:
+            futures = {executor.submit(self.embed, t): i for i, t in enumerate(texts)}
+            for future in as_completed(futures):
+                idx = futures[future]
+                try:
+                    ordered[idx] = future.result()
+                except Exception:
+                    ordered[idx] = None
+        return ordered
 
 
 # ----- 稠密检索器 -----
@@ -155,10 +169,7 @@ class DenseRetriever:
 
     def ensure_embeddings(self, corpus: LocalCorpus, max_new: int = 30,
                           pause_seconds: float = 0.0) -> int:
-        """为 corpus 中没有 embedding 的文档补算 embedding。返回新增数。
-
-        max_new 限制单次最多补算多少篇，控制 API 用量。
-        """
+        """为 corpus 中没有 embedding 的文档补算 embedding（并行）。返回新增数。"""
         if not self.available:
             return 0
 
@@ -166,7 +177,8 @@ class DenseRetriever:
         if not missing:
             return 0
 
-        added = 0
+        # 收集需要 embedding 的文档
+        tasks = []
         for full_name in missing[:max_new]:
             doc = corpus.get(full_name)
             if not doc:
@@ -174,9 +186,16 @@ class DenseRetriever:
             text = doc.doc_text()
             if not text.strip():
                 continue
-            embedding = self.client.embed(text)
-            if pause_seconds > 0:
-                time.sleep(pause_seconds)
+            tasks.append((full_name, text))
+
+        if not tasks:
+            return 0
+
+        texts = [t[1] for t in tasks]
+        embeddings = self.client.embed_many(texts, pause_seconds=pause_seconds)
+
+        added = 0
+        for (full_name, _text), embedding in zip(tasks, embeddings):
             if embedding is None:
                 continue
             corpus.update_embedding(full_name, embedding)

@@ -11,6 +11,7 @@
 """
 
 import os
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass, field
 from typing import List, Dict, Optional
 from dotenv import load_dotenv
@@ -157,27 +158,31 @@ class SearchEngine:
         return results
 
     def _execute_plan(self, plan: SearchPlan) -> Dict[str, List[dict]]:
-        """执行检索计划"""
+        """执行检索计划（并行调用各路由）。"""
         route_results = {}
 
-        for task in plan.tasks:
+        def _run_task(task: SearchTask):
             if task.route == "code_path":
                 result = self.github.search_code(
-                    query=task.query,
-                    per_page=10,
-                    use_cache=True
+                    query=task.query, per_page=10, use_cache=True
                 )
                 items = self._repositories_from_code_results(result.get("items", []))
             else:
                 result = self.github.search_repositories(
-                    query=task.query,
-                    per_page=10,
-                    use_cache=True
+                    query=task.query, per_page=10, use_cache=True
                 )
                 items = result.get("items", [])
+            return f"{task.route}_{task.name}", items
 
-            if items:
-                route_results[f"{task.route}_{task.name}"] = items
+        with ThreadPoolExecutor(max_workers=min(len(plan.tasks), 8)) as executor:
+            futures = {executor.submit(_run_task, t): t for t in plan.tasks}
+            for future in as_completed(futures):
+                try:
+                    key, items = future.result()
+                    if items:
+                        route_results[key] = items
+                except Exception:
+                    continue
 
         return route_results
 
@@ -201,12 +206,17 @@ class SearchEngine:
         return list(repos.values())
 
     def _add_seed_repositories(self, route_results: Dict[str, List[dict]], intent: QueryIntent):
-        """加入人工维护的课程资料合集仓库和种子用户仓库。"""
+        """加入人工维护的课程资料合集仓库和种子用户仓库（并行获取）。"""
         if not intent.school:
             return
 
         seed_candidates = []
-        for full_name in self.school_kb.get_seed_repositories(intent.school):
+
+        # 并行获取种子仓库详情
+        seed_full_names = self.school_kb.get_seed_repositories(intent.school)
+        seed_users = self.school_kb.get_seed_users(intent.school)
+
+        def _fetch_seed_repo(full_name):
             repo = self._get_repo_by_full_name(full_name)
             if not repo:
                 repo = self._minimal_repo_from_full_name(full_name)
@@ -216,15 +226,30 @@ class SearchEngine:
             if curated_paths:
                 repo["curated_tree_paths"] = curated_paths
                 repo["tree_paths"] = curated_paths
-            seed_candidates.append(repo)
+            return repo
 
-        for username in self.school_kb.get_seed_users(intent.school):
+        def _fetch_seed_user_repos(username):
+            repos = []
             for repo in self.github.get_user_repos(username, per_page=100, use_cache=True):
                 if self._is_relevant_seed_user_repo(repo, intent):
                     repo = repo.copy()
                     repo["known_collection"] = True
                     repo.setdefault("collection_reason", f"种子用户 {username} 的课程相关仓库")
-                    seed_candidates.append(repo)
+                    repos.append(repo)
+            return repos
+
+        with ThreadPoolExecutor(max_workers=8) as executor:
+            seed_futures = [executor.submit(_fetch_seed_repo, fn) for fn in seed_full_names]
+            user_futures = [executor.submit(_fetch_seed_user_repos, u) for u in seed_users]
+            for future in as_completed(seed_futures + user_futures):
+                try:
+                    result = future.result()
+                    if isinstance(result, list):
+                        seed_candidates.extend(result)
+                    elif result:
+                        seed_candidates.append(result)
+                except Exception:
+                    continue
 
         deduped = {}
         for repo in seed_candidates:
@@ -280,35 +305,77 @@ class SearchEngine:
         )
 
     def _enrich_top(self, candidates: List[dict], intent: QueryIntent) -> List[dict]:
-        """丰富 Top N 候选的详细信息"""
-        enriched = []
+        """丰富 Top N 候选的详细信息（并行获取 README / 目录树）。"""
+        enriched_order: List[dict] = []
+        enriched_map: Dict[str, dict] = {}
 
+        # 收集需要丰富的信息
+        enrich_tasks = []
         for candidate in candidates:
             repo_data = candidate.get("repo", candidate)
             owner = repo_data.get("owner", {}).get("login", "")
             name = repo_data.get("name", "")
-
+            full_name = repo_data.get("full_name", "")
             if not owner or not name:
                 continue
+            enrich_tasks.append((candidate, repo_data, owner, name, full_name))
+            if full_name:
+                enriched_order.append({"full_name": full_name, "candidate": candidate, "repo_data": repo_data})
 
-            # 获取 README
+        # 并行获取 README 和目录树
+        def _fetch(candidate, repo_data, owner, name):
             readme = self.github.get_readme(owner, name, use_cache=True)
             repo_data["readme_text"] = readme
-
-            if repo_data.get("known_collection") or repo_data.get("code_path_matches"):
-                fetched_paths = self.github.get_repo_tree_paths(
+            needs_tree = repo_data.get("known_collection") or repo_data.get("code_path_matches")
+            tree_paths = None
+            if needs_tree:
+                tree_paths = self.github.get_repo_tree_paths(
                     owner, name, recursive=True, use_cache=True
                 )
-                curated_paths = repo_data.get("curated_tree_paths") or []
-                repo_data["tree_paths"] = list(dict.fromkeys(curated_paths + fetched_paths))
+            return candidate, repo_data, readme, tree_paths
 
-            # 分析仓库
-            analysis = self.analyzer.analyze_repo(repo_data, readme)
-            repo_data["analysis"] = analysis
+        if enrich_tasks:
+            with ThreadPoolExecutor(max_workers=min(len(enrich_tasks), 10)) as executor:
+                futures = [executor.submit(_fetch, *args) for args in enrich_tasks]
+                for future in as_completed(futures):
+                    try:
+                        candidate, repo_data, readme, tree_paths = future.result()
+                        if tree_paths is not None:
+                            curated = repo_data.get("curated_tree_paths") or []
+                            repo_data["tree_paths"] = list(dict.fromkeys(curated + tree_paths))
+                        analysis = self.analyzer.analyze_repo(repo_data, readme)
+                        repo_data["analysis"] = analysis
+                        candidate["repo_data"] = repo_data
+                        candidate["rrf_score"] = repo_data.get("rrf_score", candidate.get("rrf_score", 0))
+                        fn = repo_data.get("full_name", "")
+                        if fn:
+                            enriched_map[fn] = candidate
+                    except Exception:
+                        continue
 
-            candidate["repo_data"] = repo_data
-            candidate["rrf_score"] = repo_data.get("rrf_score", candidate.get("rrf_score", 0))
-            enriched.append(candidate)
+        # 保持原有顺序
+        enriched = []
+        seen = set()
+        for entry in enriched_order:
+            fn = entry["full_name"]
+            if fn in enriched_map and fn not in seen:
+                seen.add(fn)
+                enriched.append(enriched_map[fn])
+            elif fn not in seen:
+                seen.add(fn)
+                # 并行未覆盖的候选用同步回退
+                c = entry["candidate"]
+                rd = entry["repo_data"]
+                rd2 = c.get("repo", c)
+                owner = rd.get("owner", {}).get("login", "") or rd2.get("owner", {}).get("login", "")
+                name = rd.get("name", "") or rd2.get("name", "")
+                if owner and name and not rd.get("readme_text"):
+                    rd["readme_text"] = self.github.get_readme(owner, name, use_cache=True)
+                if not rd.get("analysis"):
+                    rd["analysis"] = self.analyzer.analyze_repo(rd, rd.get("readme_text", ""))
+                c["repo_data"] = rd
+                c["rrf_score"] = rd.get("rrf_score", c.get("rrf_score", 0))
+                enriched.append(c)
 
         return enriched
 
