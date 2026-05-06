@@ -11,6 +11,7 @@
 """
 
 import os
+import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass, field
 from typing import List, Dict, Optional
@@ -59,6 +60,24 @@ class SearchTrace:
     corpus_size: int = 0
     embedding_added: int = 0
     embedding_available: bool = False
+    # 各步骤耗时（秒），perf_counter 差值
+    t_query_parse: float = 0.0
+    t_build_plan: float = 0.0
+    t_execute_api: float = 0.0
+    t_seed_repos: float = 0.0
+    t_rrf_first: float = 0.0
+    t_enrich: float = 0.0
+    t_persist: float = 0.0
+    t_bm25: float = 0.0
+    t_dense_embed: float = 0.0
+    t_dense_search: float = 0.0
+    t_rrf_final: float = 0.0
+    t_merge: float = 0.0
+    t_owner_profile: float = 0.0
+    t_evidence: float = 0.0
+    t_ranking: float = 0.0
+    t_build_results: float = 0.0
+    t_total: float = 0.0
 
 
 class SearchEngine:
@@ -97,63 +116,100 @@ class SearchEngine:
         Returns:
             搜索结果列表
         """
+        t0 = time.perf_counter()
         trace = SearchTrace()
         trace.embedding_available = self.dense_retriever.available
 
         # 1. 查询理解
+        t1 = time.perf_counter()
         intent = parse_query(query)
         trace.intent_type = intent.intent_type
+        trace.t_query_parse = time.perf_counter() - t1
 
         # 2. 构建检索计划
+        t2 = time.perf_counter()
         budget = 6 if mode == "fast" else 10
         plan = build_search_plan(intent, budget)
+        trace.t_build_plan = time.perf_counter() - t2
 
         # 3. 路 A：GitHub API 多路召回
+        t3 = time.perf_counter()
         route_results = self._execute_plan(plan)
+        trace.t_execute_api = time.perf_counter() - t3
         self._add_seed_repositories(route_results, intent)
+        trace.t_seed_repos = time.perf_counter() - trace.t_execute_api - t3
         trace.api_routes = len(route_results)
 
         # 4. 第一轮 RRF（仅 API 路）→ 得到候选用于丰富
+        t4 = time.perf_counter()
         api_fused = self.fuser.fuse(route_results)
         trace.api_candidates = len(api_fused)
+        trace.t_rrf_first = time.perf_counter() - t4
         enrich_limit = 20 if mode == "fast" else 50
         enriched = self._enrich_top(api_fused[:enrich_limit], intent)
+        trace.t_enrich = time.perf_counter() - t4 - trace.t_rrf_first
 
         # 5. 把丰富后的候选写入本地语料库（持久化，让 BM25/Dense 受益）
+        t5 = time.perf_counter()
         self._persist_to_corpus(enriched)
         trace.corpus_size = self.corpus.count()
+        trace.t_persist = time.perf_counter() - t5
 
         # 6. 路 B：自建 BM25 倒排索引
+        t6 = time.perf_counter()
         if self.enable_bm25:
             bm25_repos = self._bm25_route(query, enriched)
             trace.bm25_hits = len(bm25_repos)
             if bm25_repos:
                 route_results["local_bm25"] = bm25_repos
+        trace.t_bm25 = time.perf_counter() - t6
 
         # 7. 路 C：BGE-M3 稠密向量召回
+        t7 = time.perf_counter()
         if self.enable_dense and self.dense_retriever.available:
             new_emb = self.dense_retriever.ensure_embeddings(
                 self.corpus, max_new=self.dense_max_new_per_query
             )
             trace.embedding_added = new_emb
             self.dense_retriever.load(self.corpus, force=bool(new_emb))
+            trace.t_dense_embed = time.perf_counter() - t7
             dense_repos = self._dense_route(query, enriched)
             trace.dense_hits = len(dense_repos)
             if dense_repos:
                 route_results["local_dense"] = dense_repos
+            trace.t_dense_search = time.perf_counter() - t7 - trace.t_dense_embed
+        else:
+            trace.t_dense_embed = 0
+            trace.t_dense_search = 0
 
         # 8. 三路 RRF 融合
+        t8 = time.perf_counter()
         fused = self.fuser.fuse(route_results)
+        trace.t_rrf_final = time.perf_counter() - t8
 
         # 9. 合并已 enriched 的详细数据，对新增候选构造 minimal repo_data
+        t9 = time.perf_counter()
         merged = self._merge_with_enriched(fused, enriched, enrich_limit)
+        trace.t_merge = time.perf_counter() - t9
 
         # 10. 用户画像、证据、排序、最终结果
+        ta = time.perf_counter()
         self._profile_owners(merged, intent)
-        self._build_evidence(merged, intent)
-        ranked = self.ranker.rank(merged, intent)
-        results = self._build_results(ranked)
+        trace.t_owner_profile = time.perf_counter() - ta
 
+        tb = time.perf_counter()
+        self._build_evidence(merged, intent)
+        trace.t_evidence = time.perf_counter() - tb
+
+        tc = time.perf_counter()
+        ranked = self.ranker.rank(merged, intent)
+        trace.t_ranking = time.perf_counter() - tc
+
+        td = time.perf_counter()
+        results = self._build_results(ranked)
+        trace.t_build_results = time.perf_counter() - td
+
+        trace.t_total = time.perf_counter() - t0
         self.last_trace = trace
         return results
 

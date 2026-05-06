@@ -148,9 +148,57 @@ def perform_search(query: str, mode: str, max_results: int):
 
     st.success(f"找到 {len(results)} 个候选仓库")
 
+    # 耗时明细
+    _show_trace(engine.last_trace)
+
     # 展示结果
     for i, result in enumerate(results[:max_results]):
         render_result_card(i + 1, result)
+
+
+def _show_trace(trace):
+    """展示各步骤耗时明细。"""
+    if not trace or trace.t_total <= 0:
+        return
+
+    steps = [
+        ("查询解析",                trace.t_query_parse),
+        ("构建检索计划",            trace.t_build_plan),
+        ("GitHub API 多路搜索",     trace.t_execute_api),
+        ("种子仓库拉取",            trace.t_seed_repos),
+        ("RRF 第一轮融合",          trace.t_rrf_first),
+        (f"丰富候选 README/目录树",  trace.t_enrich),
+        ("写入本地语料库",          trace.t_persist),
+        ("自建 BM25 检索",          trace.t_bm25),
+        ("BGE-M3 Embedding 补算",   trace.t_dense_embed),
+        ("BGE-M3 向量搜索",          trace.t_dense_search),
+        ("RRF 三路融合",            trace.t_rrf_final),
+        ("候选合并",                trace.t_merge),
+        ("用户画像分析",            trace.t_owner_profile),
+        ("证据构建",                trace.t_evidence),
+        ("混合排序",                trace.t_ranking),
+        ("构建最终结果",            trace.t_build_results),
+    ]
+
+    # 过滤掉为 0 的步骤（未执行）
+    active_steps = [(name, t) for name, t in steps if t > 0.001]
+
+    with st.expander(f"各步骤耗时明细（总计 {trace.t_total:.2f}s）", expanded=False):
+        # 条形图
+        max_t = max(t for _, t in active_steps) if active_steps else 1
+        for name, t in active_steps:
+            pct = t / trace.t_total * 100
+            bar_len = int(t / max_t * 20)
+            bar = "█" * bar_len + "░" * (20 - bar_len)
+            color = "red" if t > 5 else ("orange" if t > 1 else "green")
+            st.markdown(
+                f":{color}[{bar}] {name}: **{t:.2f}s** ({pct:.0f}%)"
+            )
+
+        # 网络/CPU 概要
+        api_total = trace.t_execute_api + trace.t_seed_repos + trace.t_enrich + trace.t_owner_profile + trace.t_dense_embed + trace.t_dense_search
+        cpu_total = trace.t_total - api_total
+        st.markdown(f"---\nI/O 耗时: **{api_total:.2f}s** / 计算耗时: **{cpu_total:.2f}s**")
 
 
 def render_result_card(rank: int, result):
